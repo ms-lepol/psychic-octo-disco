@@ -1,5 +1,6 @@
 #include "map.h"
 #include <string>
+namespace POD {
 
 class Map_Saver {
     private:
@@ -12,3 +13,4 @@ class Map_Saver {
         void saveMap(Map map);
         Map loadMap();
 };
+}

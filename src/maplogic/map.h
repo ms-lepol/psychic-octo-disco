@@ -5,8 +5,8 @@
 #include <utility>
 #define M_WIDTH 8 // 80
 #define M_HEIGHT 6 // 60
-
-class Map {
+namespace POD {
+    class Map {
     private:
         //Attributes
         std::map<std::string, u_int8_t> land_orientation_map;
@@ -25,3 +25,4 @@ class Map {
         void deleteLand(int x, int y);
         void printMap();
 };
+}

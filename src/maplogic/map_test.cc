@@ -1,6 +1,7 @@
 #include "map.h"
 
-int main(){
+namespace POD {
+    int main(){
     Map map;
 
     map.placeLand(1, 1, 1);
@@ -15,4 +16,5 @@ int main(){
     map.printMap();
     
     return 0;
+}
 }

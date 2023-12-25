@@ -5,6 +5,8 @@
 #include <sys/types.h>
 #include <utility>
 
+namespace POD {
+
 Map::Map() {
     for (int i = 0; i < M_WIDTH*M_HEIGHT; i++) {
         map_values[i] = 0;
@@ -166,4 +168,5 @@ void Map::update(int x, int y) {
             }
         }
     }
+}
 }
