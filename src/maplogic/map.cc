@@ -35,7 +35,7 @@ u_int16_t Map::linearize(u_int8_t x, u_int8_t y) {
         std::cerr << "Error: linearize() called with x or y out of bounds" << std::endl;
         return -1;
     }
-    return (u_int8_t) (x + y*M_WIDTH);
+    return (u_int16_t) (x + y*M_WIDTH);
 }
 
 std::pair<u_int8_t, u_int8_t> Map::delinearize(u_int16_t v) {
@@ -71,14 +71,14 @@ void Map::printMap() {
     }
 }
 
-void Map::placeLand(int x, int y, u_int8_t land_id) {
+void Map::placeLand(int x, int y, u_int8_t land_type_id) {
     // TODO: check if land_id is valid
-    if (land_id == 0) {
+    if (land_type_id == 0) {
         std::cerr << "Error: placeLand() called with land_id 0" << std::endl;
         return;
     }
 
-    setMap(x, y, land_id);
+    setMap(x, y, land_type_id);
     update(x, y);
 }
 
@@ -142,17 +142,28 @@ void Map::update(int x, int y) {
         land_orientation = "S"; //Single
     }
 
-    u_int8_t land_id_type = land_id / 16;
-    u_int8_t new_land_id = land_id_type * 16 + Map::land_orientation_map[land_orientation];
+    //Determining the new land orientation
 
+    u_int8_t land_id_orientation = land_id % 16;
+    if (land_id_orientation == 0) {
+        land_id_orientation = 16;
+    }
 
-    //update the neighbors if they are not 0
-    for (auto const& neighbor : neighbors) {
-        std::pair<u_int8_t,u_int8_t> key = neighbor.first;
-        u_int8_t value = neighbor.second;
+    u_int8_t new_land_id_orientation = Map::land_orientation_map[land_orientation];
 
-        if (value != 0) {
-            update(key.first, key.second);
+    if (new_land_id_orientation != land_id_orientation) {
+        std::cout << "Land orientation changed from " << (int) land_id_orientation << " to " << (int) new_land_id_orientation << std::endl;
+         u_int8_t land_id_type = land_id / 16;
+        u_int8_t new_land_id = land_id_type * 16 + new_land_id_orientation;
+        setMap(x, y, new_land_id);
+         //update the neighbors if they are not 0
+        for (auto const& neighbor : neighbors) {
+            std::pair<u_int8_t,u_int8_t> key = neighbor.first;
+            u_int8_t value = neighbor.second;
+
+            if (value != 0) {
+                update(key.first, key.second);
+            }
         }
     }
 }

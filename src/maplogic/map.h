@@ -3,8 +3,8 @@
 #include <string>
 #include <sys/types.h>
 #include <utility>
-#define M_WIDTH 60
-#define M_HEIGHT 80
+#define M_WIDTH 8 // 80
+#define M_HEIGHT 6 // 60
 
 class Map {
     private:
@@ -21,7 +21,7 @@ class Map {
         
     public:
         Map();
-        void placeLand(int x, int y, u_int8_t land_id);
+        void placeLand(int x, int y, u_int8_t land_type_id);
         void deleteLand(int x, int y);
         void printMap();
 };

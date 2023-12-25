@@ -19,6 +19,13 @@ add_executable(client
   # and the rest of your sources
 )
 
+add_executable(map_test
+    src/maplogic/map_test.cc
+    src/maplogic/map.cc
+    src/maplogic/map_saver.cc
+    # and the rest of your sources
+)
+
 target_link_libraries(client
   PRIVATE
     gf::graphics
