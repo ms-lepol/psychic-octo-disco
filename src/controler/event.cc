@@ -21,6 +21,7 @@ namespace POD {
     Event::Event(int x, int y, TYPE_EVENT type_event){
         this->x = x;
         this->y = y;
+        this->land_type_id = 1;
         this->type_event = type_event;
     }
     int Event::getX(){

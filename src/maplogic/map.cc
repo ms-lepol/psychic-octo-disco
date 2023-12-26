@@ -56,7 +56,7 @@ void Map::setMap(int x, int y, u_int8_t v) {
     map_values[linearize(x, y)] = v;
 }
 
-u_int8_t Map::getMap(int x, int y) {
+u_int8_t const Map::getMap(int x, int y) {
     if (x >= M_WIDTH || y >= M_HEIGHT) {
         std::cerr << "Error: getMap() called with x or y out of bounds" << std::endl;
         return -1;
