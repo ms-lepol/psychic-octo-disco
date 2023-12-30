@@ -1,4 +1,5 @@
 #include "map_renderer.h"
+#include <iostream>
 
 
 
@@ -11,11 +12,11 @@ namespace POD {
         this->MapWidth = MapWidth;
         this->MapHeight = MapHeight;
         
-        texture.setSmooth();
+        //texture.setSmooth();
         this->tileLayer = gf::TileLayer::createOrthogonal({ MapWidth, MapHeight }, { TileSize, TileSize });
 
         this->id_tileset = tileLayer.createTilesetId();
-        gf::Tileset& tileset = tileLayer.getTileset(id_tileset);
+        gf::Tileset tileset = tileLayer.getTileset(id_tileset);
 
         tileset.setTileSize({ TileSize, TileSize });
         tileset.setSpacing(2);
@@ -27,15 +28,20 @@ namespace POD {
 
     }
     void MapRenderer::render(Map map){
+        tileLayer.clear();
           for (int y = 0; y < MapHeight; ++y) {
             for (int x = 0; x < MapWidth; ++x) {
                 int tile = map.getMap(x,y);
                 if (tile != 0) {
-                    tileLayer.setTile({ x, y }, id_tileset, tile);
+                    std::cout << "x: " << x << " y: " << y << " tile: " << tile << std::endl;
+                    tileLayer.setTile({ x, y }, id_tileset, tile-1);
                 }
             }
         };
     }
-
+    void MapRenderer::draw(gf::RenderTarget& target){
+        gf::RenderStates states;
+        tileLayer.draw(target, states);
+    }
 
 };

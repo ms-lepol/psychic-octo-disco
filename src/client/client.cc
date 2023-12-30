@@ -2,6 +2,7 @@
 #include <gf/Color.h>
 #include <gf/Event.h>
 #include <gf/Font.h>
+#include <gf/RenderStates.h>
 #include <gf/RenderWindow.h>
 #include <gf/Sprite.h>
 #include <gf/Text.h>
@@ -75,8 +76,8 @@ int main() {
                     std::cout << "(VUE) click on : x: " << x_mouse_grid << " y: " << y_mouse_grid << std::endl;
                     
                     map.placeLand(x_mouse_grid, y_mouse_grid, 1);
-
-                    map.printMap();
+                    map_renderer.render(map);
+                    std::cout << "map: " << &map_renderer.tileLayer << std::endl;
                 }
 
             default:
@@ -90,8 +91,9 @@ int main() {
 
         renderer.clear();
         renderer.draw(rectangle);
-        map_renderer.render(map);
-        renderer.draw(map_renderer.tileLayer);
+        //map_renderer.render(map);
+        //renderer.draw(map_renderer.tileLayer);
+        map_renderer.draw(renderer);
         renderer.display();
     }
         

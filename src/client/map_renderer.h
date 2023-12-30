@@ -23,6 +23,7 @@ namespace POD {
         
 
         public:
+            void draw(gf::RenderTarget& target);
             gf::TileLayer tileLayer;
             MapRenderer(std::string path_to_texture,int MapWidth, int MapHeight, int TileSize);
             void changeTexture(std::string path_to_texture);
