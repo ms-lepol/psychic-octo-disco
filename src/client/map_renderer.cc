@@ -12,15 +12,14 @@ namespace POD {
         this->MapWidth = MapWidth;
         this->MapHeight = MapHeight;
         
-        //texture.setSmooth();
+        texture.setSmooth();
         this->tileLayer = gf::TileLayer::createOrthogonal({ MapWidth, MapHeight }, { TileSize, TileSize });
 
-        this->id_tileset = tileLayer.createTilesetId();
-        gf::Tileset tileset = tileLayer.getTileset(id_tileset);
+        this->id_tileset = this->tileLayer.createTilesetId();
+        this->tileset = &this->tileLayer.getTileset(this->id_tileset);
+        this->tileset->setTileSize({ TileSize, TileSize });
+        this->tileset->setTexture(texture);
 
-        tileset.setTileSize({ TileSize, TileSize });
-        tileset.setSpacing(2);
-        tileset.setTexture(texture);
     }
 
     void MapRenderer::changeTexture(std::string path_to_texture){
@@ -28,16 +27,19 @@ namespace POD {
 
     }
     void MapRenderer::render(Map map){
-        tileLayer.clear();
-          for (int y = 0; y < MapHeight; ++y) {
+        
+        this->tileLayer.clear();
+          
+        for (int y = 0; y < MapHeight; ++y) {
             for (int x = 0; x < MapWidth; ++x) {
                 int tile = map.getMap(x,y);
                 if (tile != 0) {
-                    std::cout << "x: " << x << " y: " << y << " tile: " << tile << std::endl;
-                    tileLayer.setTile({ x, y }, id_tileset, tile-1);
+                    //std::cout << "x: " << x << " y: " << y << " tile: " << tile << std::endl;
+                    this->tileLayer.setTile({ x, y }, id_tileset, tile-1);
                 }
             }
         };
+        tileLayer.updateGeometry();
     }
     void MapRenderer::draw(gf::RenderTarget& target){
         gf::RenderStates states;

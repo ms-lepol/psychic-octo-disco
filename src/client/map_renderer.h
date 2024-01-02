@@ -1,6 +1,7 @@
 #include <gf/RenderWindow.h>
 #include <gf/Texture.h>
 #include <gf/TileLayer.h>
+#include <gf/Tileset.h>
 #include <gf/VectorOps.h>
 #include <gf/Views.h>
 #include <gf/ViewContainer.h>
@@ -19,10 +20,11 @@ namespace POD {
         int MapWidth;
         int MapHeight;
         int TileSize;
-        std::size_t id_tileset;
+        gf::Tileset *tileset;
         
 
         public:
+        std::size_t id_tileset; 
             void draw(gf::RenderTarget& target);
             gf::TileLayer tileLayer;
             MapRenderer(std::string path_to_texture,int MapWidth, int MapHeight, int TileSize);

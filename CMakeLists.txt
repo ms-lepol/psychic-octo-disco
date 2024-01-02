@@ -17,8 +17,7 @@ add_executable(client
   src/maplogic/map.cc
   src/maplogic/map_saver.cc
   src/client/map_renderer.cc
-  src/controler/event_handler.cc
-  src/controler/event.cc
+  
   # and the rest of your sources
 )
 

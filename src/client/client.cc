@@ -15,7 +15,6 @@
 #include <gf/Tileset.h>
 #include <gf/Grid.h>
 #include <iostream>
-#include "../controler/event_handler.h"
 #include "map_renderer.h"
 
 #define t_size 16
@@ -30,7 +29,7 @@ int main() {
     
     gf::Window window("POD - Level Editor", {M_WIDTH*t_size , M_HEIGHT*t_size});
     gf::RenderWindow renderer(window);
-    POD::MapRenderer map_renderer("../data/assets/tileset_land_1.png", M_WIDTH, M_HEIGHT, t_size);
+    POD::MapRenderer map_renderer("../data/assets/tileset_land_1.png", M_WIDTH, M_HEIGHT, 16);
     POD::Map map;
     gf::Vector2f windows_size = window.getSize();
     
@@ -77,21 +76,24 @@ int main() {
                     
                     map.placeLand(x_mouse_grid, y_mouse_grid, 1);
                     map_renderer.render(map);
-                    std::cout << "map: " << &map_renderer.tileLayer << std::endl;
+                    //map_renderer.tileLayer.updateGeometry();
                 }
-
+                else if (event.mouseButton.button == gf::MouseButton::Right) {
+                    std::cout << "(VUE) right click on : x: " << x_mouse_grid << " y: " << y_mouse_grid << std::endl;
+                    map.deleteLand(x_mouse_grid, y_mouse_grid);
+                    map_renderer.render(map);
+                }
             default:
             break;
         }
         }
 
         // Update the scene
-
+        //map_renderer.render(map);
         // Draw the entities
 
         renderer.clear();
         renderer.draw(rectangle);
-        //map_renderer.render(map);
         //renderer.draw(map_renderer.tileLayer);
         map_renderer.draw(renderer);
         renderer.display();
