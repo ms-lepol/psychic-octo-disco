@@ -86,7 +86,19 @@ void Map::placeLand(int x, int y, u_int8_t land_type_id) {
 
 void Map::deleteLand(int x, int y) {
     setMap(x, y, 0);
-    update(x, y);
+    if (x>0 && getMap(x-1, y) != 0){
+        update(x-1, y);
+    }
+    if (x<M_WIDTH-1 && getMap(x+1, y) != 0){
+        update(x+1, y);
+    }
+    if (y>0 && getMap(x, y-1) != 0){
+        update(x, y-1);
+    }
+    if (y<M_HEIGHT-1 && getMap(x, y+1) != 0){
+        update(x, y+1);
+    }
+    //update(x, y);
 }
 
 void Map::update(int x, int y) {
