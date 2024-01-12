@@ -29,7 +29,7 @@ int main() {
     
     gf::Window window("POD - Level Editor", {M_WIDTH*t_size , M_HEIGHT*t_size});
     gf::RenderWindow renderer(window);
-    POD::MapRenderer map_renderer("../data/assets/tileset_land_1.png", M_WIDTH, M_HEIGHT, 16);
+    POD::MapRenderer map_renderer("../data/assets/tileset_land_1.png", M_WIDTH, M_HEIGHT, t_size);
     POD::Map map;
     gf::Vector2f windows_size = window.getSize();
     
@@ -39,8 +39,6 @@ int main() {
     // Create a graphical text to display
 
     // Testing a display for the map
-    gf::Grid grid = gf::Grid::createOrthogonal(gf::Vector2f(640,480), gf::Vector2f(8,8));
-
     renderer.clear(gf::Color::Blue);
     
     gf::RectangleShape rectangle;
@@ -69,16 +67,16 @@ int main() {
                 rectangle.setPosition({(float)x_mouse, (float) y_mouse});
             break;
             case gf::EventType::MouseButtonPressed:
+                x_mouse_grid = event.mouseButton.coords.x / t_size;
+                y_mouse_grid = event.mouseButton.coords.y / t_size;
                 if (event.mouseButton.button == gf::MouseButton::Left) {
-                    x_mouse_grid = event.mouseButton.coords.x / t_size;
-                    y_mouse_grid = event.mouseButton.coords.y / t_size;
+                   
                     std::cout << "(VUE) click on : x: " << x_mouse_grid << " y: " << y_mouse_grid << std::endl;
                     
                     map.placeLand(x_mouse_grid, y_mouse_grid, 1);
                     map_renderer.render(map);
-                    //map_renderer.tileLayer.updateGeometry();
                 }
-                else if (event.mouseButton.button == gf::MouseButton::Right) {
+                if (event.mouseButton.button == gf::MouseButton::Right) {
                     std::cout << "(VUE) right click on : x: " << x_mouse_grid << " y: " << y_mouse_grid << std::endl;
                     map.deleteLand(x_mouse_grid, y_mouse_grid);
                     map_renderer.render(map);
@@ -89,6 +87,7 @@ int main() {
         }
 
         // Update the scene
+        
         //map_renderer.render(map);
         // Draw the entities
 

@@ -27,11 +27,10 @@ namespace POD {
 
     }
     void MapRenderer::render(Map map){
-        
         this->tileLayer.clear();
           
-        for (int y = 0; y < MapHeight; ++y) {
-            for (int x = 0; x < MapWidth; ++x) {
+        for (int y = 0; y < this->MapHeight; ++y) {
+            for (int x = 0; x < this->MapWidth; ++x) {
                 int tile = map.getMap(x,y);
                 if (tile != 0) {
                     //std::cout << "x: " << x << " y: " << y << " tile: " << tile << std::endl;
